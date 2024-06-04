@@ -10,7 +10,6 @@ var car = [
     "imgs/4.png",
     "imgs/5.png",
 ];
-
 var addlight = function () {
     document.onclick = function() {
         console.log("Mouse clicked during addlight");
@@ -56,7 +55,6 @@ function restart(){
             time.innerHTML = diff.toFixed(3);
         }
     }, 100);
-
     var stopTimer = function(){
         if(click) return;
         click = true;
@@ -64,10 +62,8 @@ function restart(){
         end = new Date().getTime();
         diff = (end-start)/1000;
         time.innerHTML = diff.toFixed(3);
-
         document.onclick = null;
         document.onkeydown = null;
-
         swal({
             title: "Your reaction time is " + diff.toFixed(3) + " seconds.",
             text: "Enter your name to save your score:",
@@ -76,11 +72,9 @@ function restart(){
                 text: "Submit",
                 closeModal: true,
             },
-
+            className: "custom-swal",
         })
         .then(name => {
-            if (!name) throw null;
-
             setTimeout(function() {
                 startt.style.display = "block";
                 time.style.display = "none";
@@ -100,22 +94,12 @@ function restart(){
             };
             var data = JSON.stringify({ "name": name, "time": diff.toFixed(3) });
             xhr.send(data);
-        })
-        .catch(err => {
-            if (err) {
-                swal("Oh noes!", "The AJAX request failed!", "error");
-            } else {
-                swal.stopLoading();
-                swal.close();
-            }
         });
     }
     time.onclick = stopTimer;
     document.onclick = stopTimer;
     document.onkeydown = stopTimer;
-
 }
-
 function updateLeaderboard() {
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "/api/quotes", true);
@@ -138,7 +122,6 @@ function updateLeaderboard() {
     };
     xhr.send();
 }
-
 document.getElementById('toggle-leaderboard').onclick = function(event){
     var leaderboard = document.getElementById('leaderboard');
     if (leaderboard.style.display === 'none') {
@@ -148,7 +131,14 @@ document.getElementById('toggle-leaderboard').onclick = function(event){
     }
     event.stopPropagation();// 阻止事件冒泡
 };
-
-//按下按鍵後開始遊戲
+document.getElementById('menu').onclick = function(event){
+    var leaderboard = document.getElementById('leaderboard');
+    if (leaderboard.style.display === 'none') {
+        leaderboard.style.display = 'block';
+    } else {
+        leaderboard.style.display = 'none';
+    }
+    event.stopPropagation();// 阻止事件冒泡
+};
 document.onclick = addlight;
 document.onkeydown = addlight;

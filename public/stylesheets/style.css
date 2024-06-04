@@ -115,3 +115,16 @@ h1{
   width: 50px;
   height: 50px;
 }
+.custom-swal .swal-modal {
+  background-color: #f2f2f2; // 修改背景顏色
+border-radius: 40px; // 修改邊框圓角
+}
+
+.custom-swal .swal-title {
+  color: #4CAF50; // 修改標題顏色
+}
+
+.custom-swal .swal-button {
+  background-color: #4CAF50; // 修改按鈕背景顏色
+color: white; // 修改按鈕文字顏色
+}
