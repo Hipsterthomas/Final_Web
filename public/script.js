@@ -11,8 +11,6 @@ var car = [
     "imgs/5.png",
 ];
 
-
-
 var addlight = function () {
     document.onclick = function() {
         console.log("Mouse clicked during addlight");
@@ -67,26 +65,50 @@ function restart(){
         diff = (end-start)/1000;
         time.innerHTML = diff.toFixed(3);
 
-        var name = prompt("Your reaction time is " + diff.toFixed(3) + " seconds. Please enter your name:");
-        startt.style.display = "block";
-        time.style.display = "none";
-        document.onclick = addlight;
-        document.onkeydown = addlight;
+        document.onclick = null;
+        document.onkeydown = null;
 
-        //將時間與使用者名稱傳送到後端
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/api/insert", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-                updateLeaderboard();
+        swal({
+            title: "Your reaction time is " + diff.toFixed(3) + " seconds.",
+            text: "Enter your name to save your score:",
+            content: "input",
+            button: {
+                text: "Submit",
+                closeModal: true,
+            },
+
+        })
+        .then(name => {
+            if (!name) throw null;
+
+            setTimeout(function() {
+                startt.style.display = "block";
+                time.style.display = "none";
+                document.onclick = addlight;
+                document.onkeydown = addlight;
+            },200);
+
+            //將時間與使用者名稱傳送到後端
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/api/insert", true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
+                    updateLeaderboard();
+                }
+            };
+            var data = JSON.stringify({ "name": name, "time": diff.toFixed(3) });
+            xhr.send(data);
+        })
+        .catch(err => {
+            if (err) {
+                swal("Oh noes!", "The AJAX request failed!", "error");
+            } else {
+                swal.stopLoading();
+                swal.close();
             }
-        };
-        var data = JSON.stringify({ "name": name, "time": diff.toFixed(3) });
-        xhr.send(data);
-
-
+        });
     }
     time.onclick = stopTimer;
     document.onclick = stopTimer;

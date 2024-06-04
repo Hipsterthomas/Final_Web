@@ -7,9 +7,16 @@ html {height: 100%;overflow: hidden;}
   #leaderboard {
     width: 100%;
   }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .time {
+    font-size: 80px;
+  }
 }
 
-/* 如果螢幕寬度大於 600px */
 @media (min-width: 601px) {
   body {
     font-size: 22px;
@@ -17,6 +24,14 @@ html {height: 100%;overflow: hidden;}
 
   #leaderboard {
     width: 50%;
+  }
+
+  h1 {
+    font-size: 40px;
+  }
+
+  .time {
+    font-size: 100px;
   }
 }
 body{
@@ -85,15 +100,15 @@ h1{
   position: absolute;
   top: 50px;
   left: 0;
-  display: none; /* 預設為隱藏 */
+  display: none;
   background-color: #f2f2f2;
   padding: 20px;
-  font-family: Arial, sans-serif; /* 更改字體 */
+  font-family: Arial, sans-serif;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  margin: 10px; /* 添加邊距 */
-  border: 1px solid #fff; /* 添加邊框 */
-  max-height: 100vh; /* 限制最大高度為視窗高度 */
-  overflow-y: auto; /* 內容超出時顯示滾動條 */
+  margin: 10px;
+  border: 1px solid #fff;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 #toggle-leaderboard {
   cursor: pointer;
